@@ -7,11 +7,11 @@
 
 [build-status]:https://travis-ci.org/alphacep/nativescript-vosk.svg?branch=master
 [build-url]:https://travis-ci.org/alphacep/nativescript-vosk
-[npm-image]:http://img.shields.io/npm/v/nativescript-speech-recognition.svg
-[npm-url]:https://npmjs.org/package/nativescript-speech-recognition
-[downloads-image]:http://img.shields.io/npm/dm/nativescript-speech-recognition.svg
-[twitter-image]:https://img.shields.io/twitter/follow/eddyverbruggen.svg?style=social&label=Follow%20me
-[twitter-url]:https://twitter.com/eddyverbruggen
+[npm-image]:http://img.shields.io/npm/v/nativescript-vosk.svg
+[npm-url]:https://npmjs.org/package/nativescript-vosk
+[downloads-image]:http://img.shields.io/npm/dm/nativescript-vosk.svg
+[twitter-image]:https://img.shields.io/twitter/follow/alphacep.svg?style=social&label=Follow%20me
+[twitter-url]:https://twitter.com/alphacep
 
 This is the plugin [demo](https://github.com/alphacep/nativescript-vosk/tree/master/demo) in action..
 
@@ -20,7 +20,7 @@ From the command prompt go to your app's root folder and execute:
 
 ### NativeScript 7+:
 ```bash
-ns plugin add nativescript-speech-recognition
+ns plugin add nativescript-vosk
 ```
 
 # Thanks
