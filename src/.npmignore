@@ -1,0 +1,8 @@
+*.ts
+*.map
+!speech-recognition-vosk-jni.d.ts
+!speech-recognition-vosk.d.ts
+!index.d.ts
+tsconfig.json
+platforms/android/AndroidManifest.xml
+platforms/android/include.gradle

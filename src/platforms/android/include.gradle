@@ -1,0 +1,20 @@
+/* Include.gradle configuration: http://docs.nativescript.org/plugins/plugins#includegradle-specification */
+
+android {
+	
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url "https://alphacephei.com/maven"
+    }
+}
+
+dependencies {
+    implementation 'net.java.dev.jna:jna:5.8.0@aar'
+    implementation group: 'com.alphacephei', name: 'vosk-android', version: '0.3.31'
+    implementation group: 'com.alphacephei', name: 'vosk-model-en', version: '0.3.31'
+}
+

@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "@nativescript/core": "~8.1.1",
+    "@nativescript/theme": "~2.3.3",
+    "@nativescript/unit-test-runner": "~2.0.5",
+    "nativescript-vosk": "../src"
+  },
+  "devDependencies": {
+    "@nativescript/android": "~8.1.1",
+    "@nativescript/ios": "~8.1.0",
+    "@nativescript/types": "~8.1.0",
+    "@nativescript/webpack": "~5.0.0",
+    "babel-traverse": "6.26.0",
+    "babel-types": "6.26.0",
+    "babylon": "6.18.0",
+    "karma-webpack": "~5.0.0",
+    "lazy": "1.0.11",
+    "tns-core-modules": "^6.0.0",
+    "tns-platform-declarations": "^6.0.0",
+    "typescript": "~4.3.5"
+  },
+  "main": "./app/app.ts",
+  "scripts": {
+    "build.plugin": "cd ../src && npm run build"
+  }
+}

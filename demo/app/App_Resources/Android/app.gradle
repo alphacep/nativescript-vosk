@@ -1,0 +1,10 @@
+android {
+  defaultConfig {
+    minSdkVersion 21
+    generatedDensities = []
+    applicationId = "org.vosk.demo.nativescript"
+  }
+  aaptOptions {
+    additionalParameters "--no-version-vectors"
+  }
+}
