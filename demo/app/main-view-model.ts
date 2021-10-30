@@ -1,59 +1,49 @@
 import { Observable, isAndroid } from "@nativescript/core";
-import { SpeechRecognition, SpeechRecognitionTranscription } from "nativescript-vosk";
+import { syncModel, SpeechService } from "nativescript-vosk";
 
-export class HelloWorldModel extends Observable {
+export class VoskDemoModel extends Observable {
 
-  private speechRecognition: SpeechRecognition;
-  public feedback: string = "pick a language and say something..";
+  private speechService : SpeechService;
+  private model : any;
+
+  public feedback: string = "Press 'Start' and say something";
   public listening: boolean = false;
 
   constructor() {
     super();
-    this.speechRecognition = new SpeechRecognition();
-
-    // Testing manual persmission. You don't need to do this.
-    setTimeout(() => this.requestPermission(), 1500);
-  }
-
-  public startListeningDefault(): void {
-    this.startListening();
-  }
-
-  public startListeningNL(): void {
-    this.startListening("nl-NL");
-  }
-
-  public startListeningEN(): void {
-    this.startListening("en-US");
+    syncModel().then((model : any) => {
+         this.model = model;
+         this.speechService = new SpeechService();
+    })
   }
 
   public startListening(locale?: string): void {
     let that = this; // TODO remove 'that'
 
-    this.speechRecognition.available().then((avail: boolean) => {
+    this.speechService.available().then((avail: boolean) => {
       if (!avail) {
         that.set("feedback", "speech recognition not available");
         return;
       }
-      that.speechRecognition.startListening(
+      that.speechService.startListening(
+          that.model,
           {
-            returnPartialResults: true,
-            locale: locale,
-            onResult: (transcription: SpeechRecognitionTranscription) => {
-              that.set("feedback", transcription.text);
-              if (transcription.finished) {
-                that.set("listening", false);
-              }
+            onResult: (hyp: string) => {
+              that.set("feedback", hyp);
+              that.set("listening", false);
+              that.speechService.cancel();
             },
-            onError: (error: string | number) => {
-              console.log(">>>> error: " + error);
-              // because of the way iOS and Android differ, this is either:
-              // - iOS: A 'string', describing the issue.
-              // - Android: A 'number', referencing an 'ERROR_*' constant from https://developer.android.com/reference/android/speech/SpeechRecognizer.
-              //            If that code is either 6 or 7 you may want to restart listening.
-              if (isAndroid && error === 6 /* timeout */) {
-                // that.startListening(locale);
-              }
+            onPartialResult: (hyp: string) => {
+              that.set("feedback", hyp);
+            },
+            onFinalResult: (hyp: string) => {
+              that.set("listening", false);
+            },
+            onError: () => {
+              that.set("listening", false);
+            },
+            onTimeout: () => {
+              that.set("listening", false);
             }
           }
       ).then((started: boolean) => {
@@ -66,17 +56,10 @@ export class HelloWorldModel extends Observable {
 
   public stopListening(): void {
     let that = this;
-    this.speechRecognition.stopListening().then(() => {
+    this.speechService.stop().then(() => {
       that.set("listening", false);
     }, (errorMessage: string) => {
       console.log(`Error while trying to stop listening: ${errorMessage}`);
-    });
-  }
-
-  public requestPermission(): void {
-    let that = this;
-    this.speechRecognition.requestPermission().then((granted: boolean) => {
-      console.log("Granted? " + granted);
     });
   }
 }

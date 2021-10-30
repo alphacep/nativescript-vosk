@@ -82,7 +82,7 @@ export class SpeechService {
     });
   }
 
-  startListening(listener: RecognitionListener): Promise<boolean> {
+  startListening(model: org.vosk.Model, listener: RecognitionListener): Promise<boolean> {
     return new Promise((resolve, reject) => {
 
       let onPermissionGranted = () => {
@@ -91,7 +91,6 @@ export class SpeechService {
         loopHandler.post(new java.lang.Runnable({
           run: () => {
 
-            let model = new org.vosk.Model("/sdcard/opt/data");
             let recognizer = new org.vosk.Recognizer(model, 16000.0);
 
             this.speechService = new org.vosk.android.SpeechService(recognizer, 16000.0);
@@ -117,6 +116,7 @@ export class SpeechService {
                 listener.onError();
               }
             }));
+            resolve(true);
           }
         }));
       };
@@ -201,4 +201,18 @@ export class SpeechService {
         444 // irrelevant since we simply invoke onPermissionGranted
     );
   }
+}
+
+export function syncModel() : Promise<any> {
+
+  return new Promise<org.vosk.Model>((resolve, reject) => {
+  let loopHandler = new android.os.Handler(android.os.Looper.getMainLooper());
+    loopHandler.post(new java.lang.Runnable({
+      run: () => {
+        let outputPath = org.vosk.android.StorageService.sync(Utils.android.getApplicationContext(), "model-en-us", "model");
+        let model = new org.vosk.Model(outputPath);
+        resolve(model);
+      }
+    }));
+  });
 }

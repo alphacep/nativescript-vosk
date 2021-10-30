@@ -1,12 +1,12 @@
-var SpeechRecognition = require("nativescript-vosk").SpeechRecognition;
-var speechRecognition = new SpeechRecognition();
+var SpeechService = require("nativescript-vosk").SpeechService;
+var speechService = new SpeechService();
 
 describe("available", function() {
   it("exists", function() {
-    expect(speechRecognition.available).toBeDefined();
+    expect(speechService.available).toBeDefined();
   });
 
   it("returns a promise", function() {
-    expect(speechRecognition.available()).toEqual(jasmine.any(Promise));
+    expect(speechService.available()).toEqual(jasmine.any(Promise));
   });
 });

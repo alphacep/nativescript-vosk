@@ -1,6 +1,6 @@
 {
   "name": "nativescript-vosk",
-  "version": "0.3.31",
+  "version": "0.3.32",
   "description": "Speech recognition plugin using Vosk library.",
   "main": "speech-recognition-vosk",
   "typings": "index.d.ts",
